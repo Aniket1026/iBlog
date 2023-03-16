@@ -1,9 +1,9 @@
 .App {
   min-height: 100vh;
   text-align: center;
-  display: flex;
+  /* display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: center; */
 }
 
 .App-logo {

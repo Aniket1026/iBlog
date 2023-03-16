@@ -1,7 +1,9 @@
 import React, { useState,useContext } from "react";
-import { Box, TextField, Button, styled, Typography } from "@mui/material";
 import { API } from "../../service/api.js";
 import { DataContext } from "../../context/DataProvider.jsx";
+
+import { Box, TextField, Button, styled, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const Component = styled(Box)`
   width: 400px;
@@ -34,6 +36,7 @@ const Login = () => {
   const [accountLogin, setAccountLogIn] = useState(true);
   const [error, setError] = useState('');
   const { setAccount } = useContext(DataContext);
+  const navigate = useNavigate();
   const loginInitialValues = {
     username: '',
     password: ''
@@ -80,6 +83,7 @@ const Login = () => {
       sessionStorage.setItem('accessToken', `Bearer ${response.data.accessToken}`);
       sessionStorage.setItem('refreshToken', `Bearer ${response.data.refreshToken}`);
       setAccount({ username: response.data.username, name: response.data.name })
+      navigate('/');
       
     } else {
       setError("Something went wrong.Please try again later");
