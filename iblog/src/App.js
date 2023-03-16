@@ -1,12 +1,20 @@
-import React from 'react';
-import Login from './components/accounts/Login';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-function App() {
+import Login from "./components/accounts/Login";
+import Home from "./components/home/Home";
+import "./App.css";
+
+
+import DataProvider from "./context/DataProvider";
+
+const App = () => {
   return (
-    <div className="App">
-      <Login />
-    </div>
+    <DataProvider>
+      <div className="App">
+        <Login />
+      </div>
+    </DataProvider>
   );
 }
 

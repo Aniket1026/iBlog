@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import { Box, TextField, Button, styled, Typography } from "@mui/material";
 import { API } from "../../service/api.js";
+import { DataContext } from "../../context/DataProvider.jsx";
 
 const Component = styled(Box)`
   width: 400px;
@@ -32,6 +33,7 @@ const Error = styled(Typography)`
 const Login = () => {
   const [accountLogin, setAccountLogIn] = useState(true);
   const [error, setError] = useState('');
+  const { setAccount } = useContext(DataContext);
   const loginInitialValues = {
     username: '',
     password: ''
@@ -74,6 +76,10 @@ const Login = () => {
   const loginUser = async () => {
     let response = await API.userLogin(login);
     if (response.isSuccess) {
+      setError('');
+      sessionStorage.setItem('accessToken', `Bearer ${response.data.accessToken}`);
+      sessionStorage.setItem('refreshToken', `Bearer ${response.data.refreshToken}`);
+      setAccount({ username: response.data.username, name: response.data.name })
       
     } else {
       setError("Something went wrong.Please try again later");
@@ -90,7 +96,8 @@ const Login = () => {
         <Component>
           <Image src={imageURL} alt="login" />
           <TextField id="outlined-basic" onChange={onValueChange} name ='username' label="username" variant="outlined" />
-          <TextField id="outlined-basic" onChange={onValueChange} name ='password' label="password" variant="outlined" />
+          <TextField id="outlined-basic" onChange={onValueChange} name='password' label="password" variant="outlined" />
+           {error && <Error>{error}</Error>}
           <Button variant="contained" onClick={loginUser}> Login </Button>
           <Para>OR</Para>
           <Button variant="outlined" onClick={ToggleSignUp}>
