@@ -32,14 +32,14 @@ const Error = styled(Typography)`
     font-weight:600;
 `
 
-const Login = () => {
+const Login = ({ isUserAuthenticated }) => {
   const [accountLogin, setAccountLogIn] = useState(true);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const { setAccount } = useContext(DataContext);
   const navigate = useNavigate();
   const loginInitialValues = {
-    username: '',
-    password: ''
+    username: "",
+    password: "",
   };
 
   const signUpValues = {
@@ -54,43 +54,52 @@ const Login = () => {
   };
 
   const onValueChange = (e) => {
-    setLogin({ ...login, [e.target.name]: e.target.value, })
-  }
+    setLogin({ ...login, [e.target.name]: e.target.value });
+  };
 
   const onInputChange = (e) => {
     setUserDetail({ ...userDetail, [e.target.name]: e.target.value });
     console.log(userDetail);
   };
 
-  const signUpUser = async() => {
+  const signUpUser = async () => {
     let response = await API.userSignup(userDetail);
-    console.log('before ')
+    console.log("before ");
     console.log(response);
-    console.log('after')
+    console.log("after");
     if (response.isSuccess) {
-      setError('');
+      setError("");
       setUserDetail(signUpValues);
       setAccountLogIn(true);
     } else {
-      setError('Something went wrong.Please try again later');
+      setError("Something went wrong.Please try again later");
     }
-  }
+  };
 
   const loginUser = async () => {
     let response = await API.userLogin(login);
     if (response.isSuccess) {
-      setError('');
-      sessionStorage.setItem('accessToken', `Bearer ${response.data.accessToken}`);
-      sessionStorage.setItem('refreshToken', `Bearer ${response.data.refreshToken}`);
-      setAccount({ username: response.data.username, name: response.data.name })
-      navigate('/');
-      
+      setError("");
+      sessionStorage.setItem(
+        "accessToken",
+        `Bearer ${response.data.accessToken}`
+      );
+      sessionStorage.setItem(
+        "refreshToken",
+        `Bearer ${response.data.refreshToken}`
+      );
+      setAccount({
+        username: response.data.username,
+        name: response.data.name,
+      });
+      isUserAuthenticated(true);
+      navigate("/");
     } else {
       setError("Something went wrong.Please try again later");
     }
-  }
+  };
 
-    // userDetail == signup
+  // userDetail == signup
   const imageURL =
     "https://www.sesta.it/wp-content/uploads/2021/03/logo-blog-sesta-trasparente.png";
 
@@ -99,10 +108,25 @@ const Login = () => {
       {accountLogin ? (
         <Component>
           <Image src={imageURL} alt="login" />
-          <TextField id="outlined-basic" onChange={onValueChange} name ='username' label="username" variant="outlined" />
-          <TextField id="outlined-basic" onChange={onValueChange} name='password' label="password" variant="outlined" />
-           {error && <Error>{error}</Error>}
-          <Button variant="contained" onClick={loginUser}> Login </Button>
+          <TextField
+            id="outlined-basic"
+            onChange={onValueChange}
+            name="username"
+            label="username"
+            variant="outlined"
+          />
+          <TextField
+            id="outlined-basic"
+            onChange={onValueChange}
+            name="password"
+            label="password"
+            variant="outlined"
+          />
+          {error && <Error>{error}</Error>}
+          <Button variant="contained" onClick={loginUser}>
+            {" "}
+            Login{" "}
+          </Button>
           <Para>OR</Para>
           <Button variant="outlined" onClick={ToggleSignUp}>
             {" "}
@@ -132,9 +156,12 @@ const Login = () => {
             onChange={onInputChange}
             label="password"
             variant="outlined"
-            />
-            {error && <Error>{error}</Error>}
-          <Button variant="contained" onClick={signUpUser}> Signup </Button>
+          />
+          {error && <Error>{error}</Error>}
+          <Button variant="contained" onClick={signUpUser}>
+            {" "}
+            Signup{" "}
+          </Button>
           <Para>OR</Para>
           <Button variant="outlined" onClick={ToggleSignUp}>
             Already have an account

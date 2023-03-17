@@ -1,5 +1,11 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React, { useState } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+  Outlet,
+} from "react-router-dom";
 
 import Login from "./components/accounts/Login.jsx";
 import Header from "./components/header/Header.jsx";
@@ -8,19 +14,36 @@ import "./App.css";
 
 import DataProvider from "./context/DataProvider";
 
+const PrivateRoute = ({ isAuthenticated, ...props }) => {
+  return isAuthenticated ? (
+    <>
+      <Header />
+      <Outlet />
+    </>
+  ) : (
+    <Navigate replace to="/login" />
+  );
+};
+
 const App = () => {
+  const [isAuthenticated, isUserAuthenticated] = useState(false);
   return (
     <DataProvider>
       <Router>
-          <Header />
-        <div className="App" style={{marginTop:'60px'}}>
+        <div className="App" style={{ marginTop: "60px" }}>
           <Routes>
-            <Route exact path="/" element={<Home />} />
-            <Route exact path="/login" element={<Login />} />
+            <Route
+              exact
+              path="/login"
+              element={<Login isUserAuthenticated={isUserAuthenticated} />}
+            />
+            <Route path="/" element={<PrivateRoute isAuthenticated={isAuthenticated} />} >
+              <Route exact path="/" element={<Home />} />
+            </Route>
           </Routes>
         </div>
       </Router>
-     </DataProvider>
+    </DataProvider>
   );
 };
 
