@@ -20,7 +20,8 @@ const Image = styled("img")({
 });
 
 const Para = styled("p")({
-  margin: 0,
+  marginLeft: 'auto',
+  marginRight:'auto',
   color: "grey",
 });
 

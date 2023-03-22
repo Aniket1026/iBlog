@@ -13,6 +13,7 @@ import Home from "./components/home/Home.jsx";
 import "./App.css";
 
 import DataProvider from "./context/DataProvider";
+import CreatePost from "./components/create/CreatePost.jsx";
 
 const PrivateRoute = ({ isAuthenticated, ...props }) => {
   return isAuthenticated ? (
@@ -37,8 +38,17 @@ const App = () => {
               path="/login"
               element={<Login isUserAuthenticated={isUserAuthenticated} />}
             />
-            <Route path="/" element={<PrivateRoute isAuthenticated={isAuthenticated} />} >
+            <Route
+              path="/"
+              element={<PrivateRoute isAuthenticated={isAuthenticated} />}
+            >
               <Route exact path="/" element={<Home />} />
+            </Route>
+            <Route
+              path="/create"
+              element={<PrivateRoute isAuthenticated={isAuthenticated} />}
+            >
+              <Route exact path="/create" element={<CreatePost />} />
             </Route>
           </Routes>
         </div>
