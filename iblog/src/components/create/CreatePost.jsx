@@ -1,7 +1,7 @@
 import { useState,useEffect,useContext } from "react";
 import { Box, styled, FormControl, InputBase, Button, TextareaAutosize } from "@mui/material"
 import { AddCircle as Add } from "@mui/icons-material";
-import { useLocation } from "react-router-dom";
+import { useLocation,useNavigate } from "react-router-dom";
 
 import { DataContext } from "../../context/DataProvider.jsx";
 import { API } from "../../service/api.js";
@@ -53,6 +53,7 @@ const CreatePost = () => {
   const [file, setFile] = useState('')
   const{account} = useContext(DataContext)
   const location = useLocation()
+  const navigate = useNavigate()
   const url = post.picture? post.picture: "https://images.unsplash.com/photo-1543128639-4cb7e6eeef1b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bGFwdG9wJTIwc2V0dXB8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80";
 
   useEffect(() => {
@@ -69,12 +70,19 @@ const CreatePost = () => {
     getImage()
     post.categories = location.search?.split('=')[1] || 'All';
     post.username = account.username;
-  },[file])
+  },[account.username, file, location.search, post])
   
   
   
   const HandleChange = (e) => {
     setPost({...post,[e.target.name]:e.target.value})
+  }
+
+  const savePost = async () => {
+    let response = await API.createPost(post)
+    if (response.isSuccess) {
+      navigate('/')
+    }
   }
   
   return (
@@ -86,7 +94,7 @@ const CreatePost = () => {
         </label>
         <input type="file" id="fileInput" style={{ display: "none" }} onChange={(e)=> setFile(e.target.files[0])} />
         <InputTextField placeholder="Title" onChange={HandleChange} name='title' />
-        <Button variant="contained">Publish</Button>
+        <Button variant="contained" onClick={savePost}>Publish</Button>
       </StyledFormControl>
       <Textarea
         minRows={5}

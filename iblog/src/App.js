@@ -58,3 +58,5 @@ const App = () => {
 };
 
 export default App;
+
+// change the hardcoded connection string in db.js and image-controller.js
