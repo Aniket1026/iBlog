@@ -10,6 +10,7 @@ import {
 import Login from "./components/accounts/Login.jsx";
 import Header from "./components/header/Header.jsx";
 import Home from "./components/home/Home.jsx";
+import DetailsView from "./components/details/DetailsView.jsx";
 import "./App.css";
 
 import DataProvider from "./context/DataProvider";
@@ -49,6 +50,12 @@ const App = () => {
               element={<PrivateRoute isAuthenticated={isAuthenticated} />}
             >
               <Route exact path="/create" element={<CreatePost />} />
+            </Route>
+            <Route
+              path="/details/:id"
+              element={<PrivateRoute isAuthenticated={isAuthenticated} />}
+            >
+              <Route exact path="/details/:id" element={<DetailsView />} />
             </Route>
           </Routes>
         </div>

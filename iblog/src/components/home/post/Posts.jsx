@@ -1,30 +1,42 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from "react";
+import { useSearchParams, Link } from "react-router-dom";
+import { Grid } from "@mui/material";
 
-import { API } from '../../../service/api.js'
-import Post from './Post.jsx'
-
+import { API } from "../../../service/api.js";
+import Post from "./Post.jsx";
 
 const Posts = () => {
-    const [Posts, setPosts] = useState([])
+  const [posts, setPosts] = useState([]);
+  const [searchParams] = useSearchParams();
+  const category = searchParams.get("category");
 
-    useEffect(() => {
-        const fetchdata =async () => {
-            let response = await API.getAllPosts
-            if (response.isSuccess) {
-                setPosts(response.data)
-            }
-        }
-        fetchdata()
-    }, [])
-    
+  useEffect(() => {
+    const fetchdata = async () => {
+      let response = await API.getAllPosts({ category: category || "" });
+      if (response.isSuccess) {
+        setPosts(response.data);
+      }
+    };
+    fetchdata();
+  }, [category]);
 
   return (
     <>
-      {Posts && Posts.length > 0 ? Posts.map(post => (
-        <Post Posts={Posts} />   
-      )): <div>No data available to display</div>}      
+      {posts && posts.length > 0 ? (
+        <Grid container>
+          {posts.map((post) => (
+            <Grid item lg={3} sm={4} xs={12} key={post.title}>
+              <Link to={`/details/${post._id}`} style={{textDecoration:'none',color:'inherit'}}>
+                <Post post={post} />
+              </Link>
+            </Grid>
+          ))}
+        </Grid>
+      ) : (
+        <div>No data available to display</div>
+      )}
     </>
-  )
-}
+  );
+};
 
-export default Posts
+export default Posts;
