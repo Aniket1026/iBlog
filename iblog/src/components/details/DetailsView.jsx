@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useContext } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { Box, Typography, styled } from "@mui/material";
 import { Delete, Edit } from "@mui/icons-material";
 
 import { API } from "../../service/api";
-import { DataContext } from "../../context/DataProvider.js";
+import { DataContext } from "../../context/DataProvider";
 
 const Container = styled(Box)(({ theme }) => ({
   margin: "50px 100px",
@@ -29,16 +29,25 @@ const Heading = styled(Typography)`
 const EditIcon = styled(Edit)`
   margin: 5px;
   padding: 5px;
-  border: 1px solid #878787;
-  border-radius: 10px;
+  border: 1px solid cornflowerblue;
+  border-radius: 5px;
 `;
 
 const DeleteIcon = styled(Delete)`
   margin: 5px;
   padding: 5px;
-  border: 1px solid #878787;
-  border-radius: 10px;
+  border: 1px solid red;
+  border-radius: 5px;
 `;
+
+const Author = styled(Box)(({ theme }) => ({
+  color: "#878787",
+  display: "flex",
+  margin: "20px 0",
+  [theme.breakpoints.down("sm")]: {
+    display: "block",
+  },
+}));
 
 const DetailsView = () => {
   const [post, setPost] = useState({});
@@ -60,16 +69,23 @@ const DetailsView = () => {
       <Box>
         {account.username === post.username && (
           <>
-            <EditIcon color="primary" />
+            <Link to={`/update/${post._id}`}>
+              <EditIcon color="primary" />
+            </Link>
             <DeleteIcon color="error" />
           </>
         )}
       </Box>
       <Heading>{post.title}</Heading>
-      <Box>
-        <Typography>{post.username}</Typography>
-        <Typography>{new Date(post.createdDate).toDateString()}</Typography>
-      </Box>
+      <Author>
+        <Typography>
+          Author: <span style={{ fontWeight: 600 }}>{post.username}</span>
+        </Typography>
+        <Typography style={{ marginLeft: "auto" }}>
+          {new Date(post.createdDate).toDateString()}
+        </Typography>
+      </Author>
+      <Typography>{post.description}</Typography>
     </Container>
   );
 };
