@@ -31,7 +31,7 @@ export const SERVICE_URLS = {
   uploadFile: { url: "/file/upload", method: "POST" },
   createPost: { url: "/create", method: "POST" },
   getAllPosts: { url: "/posts", method: "GET", params: true },
-  getPostById: { url: '/post', method: 'GET', query: true },
-  updatePost: { url: '/details', method: 'PUT', query: true },
-  
+  getPostById: { url: "/post", method: "GET", query: true },
+  updatePost: { url: "/details", method: "PUT", query: true },
+  deletePost: { url: "/delete", method: "DELETE", query: true },
 };

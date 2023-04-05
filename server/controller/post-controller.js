@@ -47,7 +47,22 @@ export const updatePost = async (request, response) => {
         .json({ msg: "Post not found" + error.message });
     }
     await Post.findByIdAndUpdate(request.params.id, { $set: request.body });
-    response.status(200).json({ msg: "Post is updates successfully" });
+    return response.status(200).json({ msg: "Post is updates successfully" });
+  } catch (error) {
+    return response.status(500).json(error);
+  }
+};
+
+export const deletePost = async (request, response) => {
+  try {
+    const post = await Post.findById(request.params.id);
+    if (!post) {
+      return response
+        .status(404)
+        .json({ msg: "Post not found" + error.message });
+    }
+    await Post.findByIdAndDelete(post._id);
+    return response.status(200).json({ msg: "Post is deleted successfully" });
   } catch (error) {
     return response.status(500).json(error);
   }

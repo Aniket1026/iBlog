@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { Box, Typography, styled } from "@mui/material";
 import { Delete, Edit } from "@mui/icons-material";
 
@@ -53,6 +53,7 @@ const DetailsView = () => {
   const [post, setPost] = useState({});
   const { id } = useParams();
   const { account } = useContext(DataContext);
+  const navigate = useNavigate();
   // const url= ``
   useEffect(() => {
     const fetchData = async () => {
@@ -62,7 +63,16 @@ const DetailsView = () => {
       }
     };
     fetchData();
-  }, []);
+  }, [id]);
+
+  const deleteBlog = async () => {
+    console.log("ho gaya")
+    let response = await API.deletePost(post._id);
+    if (response.isSuccess) {
+      navigate("/");
+    }
+  };
+
   return (
     <Container>
       <Image src={post.picture} alt="blog" />
@@ -72,7 +82,7 @@ const DetailsView = () => {
             <Link to={`/update/${post._id}`}>
               <EditIcon color="primary" />
             </Link>
-            <DeleteIcon color="error" />
+            <DeleteIcon color="error" onClick={deleteBlog} />
           </>
         )}
       </Box>
