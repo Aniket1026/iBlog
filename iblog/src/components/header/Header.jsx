@@ -1,5 +1,5 @@
 import React from 'react'
-import { AppBar, Toolbar, styled } from '@mui/material'
+import { AppBar, Button, Toolbar, styled } from '@mui/material'
 import { Link } from 'react-router-dom'
 
 const Component = styled(AppBar)`
@@ -13,17 +13,29 @@ const Container = styled(Toolbar)`
   }
 `;
 
+const Switch = styled(Button)`
+    text-transform: none !important;
+`;
+
 const Header = () => {
   return (
-      <Component>
-          <Container>
-              <Link to='/'>HOME</Link>
-              <Link to ='/about'>ABOUT</Link>
-              <Link to ='/contact'>CONTACT</Link>
-              <Link to ='/login'>Logout</Link>
-          </Container>
+    <Component>
+      <Container>
+        <Link to="/">
+          <Switch variant="oulined">Home</Switch>
+        </Link>
+        <Link to="/about">
+          <Switch variant="oulined">About</Switch>
+        </Link>
+        <Link to="/contact">
+          <Switch variant="oulined">Contact</Switch>
+        </Link>
+        <Link to="/login">
+          <Switch variant="oulined">Logout</Switch>
+        </Link>
+      </Container>
     </Component>
-  )
+  );
 }
 
 export default Header
