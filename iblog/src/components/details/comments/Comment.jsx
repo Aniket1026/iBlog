@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Typography, Box, styled } from "@mui/material";
 import { Delete } from "@mui/icons-material";
 
@@ -27,11 +27,23 @@ const StyledDate = styled(Typography)`
   color: #878787;
 `;
 
-const Comment = ({comment}) => {
+const DeleteIcon = styled(Delete)`
+  margin-left: auto;
+`;
+
+
+const Comment = ({ comment }) => {
+    const { account } = useContext(DataContext);
+
+
   return (
     <Component>
       <Container>
         <Name>{comment.name}</Name>
+        <StyledDate>{new Date(comment.date).toDateString()}</StyledDate>
+        {comment.name === account.username && (
+          <DeleteIcon />
+        )}
       </Container>
       <Typography>{comment.comments}</Typography>
     </Component>

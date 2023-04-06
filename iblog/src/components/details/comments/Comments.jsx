@@ -36,6 +36,7 @@ const InitialValues = {
 const Comments = ({ post }) => {
   const url = "https://static.thenounproject.com/png/12017-200.png";
   const [comment, setComment] = useState(InitialValues);
+  const [toggle, setToggle] = useState(false);
   const [comments, setComments] = useState([]);
   const { account } = useContext(DataContext);
 
@@ -47,7 +48,7 @@ const Comments = ({ post }) => {
       }
     };
     fetchData();
-  }, [post._id]);
+  }, [post._id,toggle]);
 
   const handleChange = (e) => {
     setComment({
@@ -63,6 +64,7 @@ const Comments = ({ post }) => {
     if (response.isSuccess) {
       setComment(InitialValues);
     }
+    setToggle(prevState=>!prevState)
   };
 
   return (

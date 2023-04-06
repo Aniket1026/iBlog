@@ -18,6 +18,6 @@ router.get('/post/:id', authenticateToken, getPost);
 router.put('/details/:id', authenticateToken, updatePost);
 router.delete('/delete/:id', authenticateToken, deletePost);
 router.post('/newComment', authenticateToken, newComment);
-router.get('/newComment/:id',authenticateToken,getComment)
+router.get('/newComment/:id', authenticateToken, getComment);
 
 export default router;
