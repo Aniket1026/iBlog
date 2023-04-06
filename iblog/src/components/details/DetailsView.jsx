@@ -5,6 +5,7 @@ import { Delete, Edit } from "@mui/icons-material";
 
 import { API } from "../../service/api";
 import { DataContext } from "../../context/DataProvider";
+import Comments from "./comments/Comments";
 
 const Container = styled(Box)(({ theme }) => ({
   margin: "50px 100px",
@@ -96,6 +97,7 @@ const DetailsView = () => {
         </Typography>
       </Author>
       <Typography>{post.description}</Typography>
+      <Comments post={post} />
     </Container>
   );
 };
