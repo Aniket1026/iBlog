@@ -3,7 +3,7 @@ import { signupUser, loginUser } from "../controller/user-controller.js";
 import { uploadImage, getImage } from "../controller/image-controller.js";
 import { createPost, getAllPosts,getPost,updatePost,deletePost } from "../controller/post-controller.js";
 import { authenticateToken } from "../controller/jwt-controller.js";
-import { newComment } from "../controller/comment-controller.js";
+import { newComment,getComment } from "../controller/comment-controller.js";
 import upload from "../utils/upload.js";
 
 const router = express.Router();
@@ -18,5 +18,6 @@ router.get('/post/:id', authenticateToken, getPost);
 router.put('/details/:id', authenticateToken, updatePost);
 router.delete('/delete/:id', authenticateToken, deletePost);
 router.post('/newComment', authenticateToken, newComment);
+router.get('/newComment/:id',authenticateToken,getComment)
 
 export default router;
