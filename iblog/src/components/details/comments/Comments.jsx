@@ -1,6 +1,8 @@
 import React, { useState, useContext } from "react";
 import { Box, TextareaAutosize, Button, styled } from "@mui/material";
+
 import { DataContext } from "../../../context/DataProvider";
+import { API } from "../../../service/api.js";
 
 const Container = styled(Box)`
   margin-top: 100px;
@@ -44,6 +46,13 @@ const Comments = ({ post }) => {
     });
   };
 
+  const addComment =async () => {
+    let response = await API.newComment(comment);
+    if (response.isSuccess) {
+      setComment(InitialValues);
+    }
+  }
+
   return (
     <Box>
       <Container>
@@ -54,9 +63,10 @@ const Comments = ({ post }) => {
           value={comment.comments}
           onChange={handleChange}
         />
-        <Switch variant="contained">Comment</Switch>
+        <Switch variant="contained" onClick={addComment}>Comment</Switch>
       </Container>
-      <Box></Box>
+      <Box>
+      </Box>
     </Box>
   );
 };
