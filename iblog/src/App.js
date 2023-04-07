@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 
 import Login from "./components/accounts/Login.jsx";
+import About from "./components/about/About.jsx";
 import Header from "./components/header/Header.jsx";
 import Home from "./components/home/Home.jsx";
 import DetailsView from "./components/details/DetailsView.jsx";
@@ -63,6 +64,12 @@ const App = () => {
               element={<PrivateRoute isAuthenticated={isAuthenticated} />}
             >
               <Route exact path="/update/:id" element={<Update />} />
+            </Route>
+            <Route
+              path="/about"
+              element={<PrivateRoute isAuthenticated={isAuthenticated} />}
+            >
+              <Route exact path="/about" element={<About />} />
             </Route>
           </Routes>
         </div>
