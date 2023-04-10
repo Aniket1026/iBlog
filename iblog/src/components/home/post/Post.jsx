@@ -1,6 +1,6 @@
 import React from 'react'
-
 import { Box, Typography,styled } from '@mui/material'
+import StarIcon from '../../icons/StarIcon';
 
 const Container = styled(Box)`
   border: 1px solid #d3cede;
@@ -53,6 +53,7 @@ const Post = ({ post }) => {
       <Heading>{addEllipsis(post.title, 20)}</Heading>
       <Text>Author: {post.username}</Text>
       <Details>{addEllipsis(post.description, 100)}</Details>
+      <StarIcon />
     </Container>
   );
 }
