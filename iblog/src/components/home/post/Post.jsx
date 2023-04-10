@@ -1,14 +1,16 @@
-import React from 'react'
-import { Box, Typography,styled } from '@mui/material'
-import StarIcon from '../../icons/StarIcon';
+import React from "react";
+import { Box, Typography, styled } from "@mui/material";
+import StarIcon from "../../icons/StarIcon";
 
 const Container = styled(Box)`
   border: 1px solid #d3cede;
   border-radius: 10px;
   margin: 10px;
+  /* padding:1px; */
   display: flex;
   align-items: center;
   flex-direction: column;
+  justify-content: space-between;
   height: 350px;
   & > img,
   & > p {
@@ -19,13 +21,13 @@ const Container = styled(Box)`
 const Image = styled("img")({
   width: "100%",
   objectFit: "cover",
-  borderRadius: "10px 10px 0 0",
+  borderRadius: "12px 12px 0 0",
   height: 150,
 });
 
 const Text = styled(Typography)`
-    color: #878787;
-    font-size: 12px;
+  color: #878787;
+  font-size: 12px;
 `;
 
 const Heading = styled(Typography)`
@@ -39,23 +41,23 @@ const Details = styled(Typography)`
 `;
 
 const Post = ({ post }) => {
-       const url = post.picture
-         ? post.picture
-         : "https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=752&q=80";
+  const url = post.picture
+    ? post.picture
+    : "https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=752&q=80";
 
-       const addEllipsis = (str, limit) => {
-         return str.length > limit ? str.substring(0, limit) + "..." : str;
-       }; 
+  const addEllipsis = (str, limit) => {
+    return str.length > limit ? str.substring(0, limit) + "..." : str;
+  };
   return (
     <Container>
       <Image src={url} alt="post" />
       <Text>{post.categories}</Text>
       <Heading>{addEllipsis(post.title, 20)}</Heading>
       <Text>Author: {post.username}</Text>
-      <Details>{addEllipsis(post.description, 100)}</Details>
+      <Details>{addEllipsis(post.description, 50)}</Details>
       <StarIcon />
     </Container>
   );
-}
+};
 
-export default Post
+export default Post;

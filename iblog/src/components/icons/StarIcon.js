@@ -7,6 +7,7 @@ const Star = styled('div')`
  flex-direction: row;
  justify-content:flex-end;
  min-width:90%;
+ max-height:10%;
 `
  
  const StarIcon = () => {

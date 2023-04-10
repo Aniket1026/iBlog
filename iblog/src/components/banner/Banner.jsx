@@ -25,8 +25,8 @@ const SubHeading = styled(Typography)`
 const Banner = () => {
   return (
     <Image>
-      <Heading>BLOG</Heading>
-      <SubHeading>Code for Interview</SubHeading>
+      <Heading>Iblog</Heading>
+      <SubHeading>Share your learning</SubHeading>
     </Image>
   );
 };
