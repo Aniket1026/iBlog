@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useSearchParams, Link } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { Grid } from "@mui/material";
 
 import { API } from "../../../service/api.js";
@@ -26,9 +26,7 @@ const Posts = () => {
         <Grid container>
           {posts.map((post) => (
             <Grid item lg={3} sm={4} xs={12} key={post.title}>
-              {/* <Link to={`/details/${post._id}`} style={{textDecoration:'none',color:'inherit'}}> */}
-                <Post post={post} />
-              {/* </Link> */}
+              <Post post={post} />
             </Grid>
           ))}
         </Grid>
