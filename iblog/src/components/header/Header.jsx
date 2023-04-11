@@ -24,6 +24,8 @@ const Switch = styled(Button)`
   text-transform: none !important;
 `;
 
+const ModeButton = {cursor:'pointer'}
+
 const Header = () => {
   const [darkMode, setDarkMode] = useState(false);
   return (
@@ -44,13 +46,15 @@ const Header = () => {
       </Container>
       {darkMode ? (
         <NightlightIcon
-          sx={{ color: 'black' }}
+          sx={{ color: "black" }}
           onClick={() => setDarkMode(!darkMode)}
+          style={ModeButton}
         />
       ) : (
         <LightModeIcon
           sx={{ color: yellow[800] }}
           onClick={() => setDarkMode(!darkMode)}
+          style={ModeButton}
         />
       )}
     </Component>
