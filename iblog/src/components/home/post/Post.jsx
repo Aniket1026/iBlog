@@ -55,7 +55,7 @@ const Post = ({ post }) => {
       <Heading>{addEllipsis(post.title, 20)}</Heading>
       <Text>Author: {post.username}</Text>
       <Details>{addEllipsis(post.description, 50)}</Details>
-      <StarIcon />
+      <StarIcon post={post} />
     </Container>
   );
 };
