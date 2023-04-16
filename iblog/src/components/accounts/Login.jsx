@@ -5,13 +5,15 @@ import { DataContext } from "../../context/DataProvider.jsx";
 import { Box, TextField, Button, styled, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
+
 const Component = styled(Box)`
   width: 400px;
-  height: 400px;
+  height: 500px;
   margin: auto;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  padding:20px;
 `;
 
 const Image = styled("img")({
@@ -128,6 +130,7 @@ const Login = ({ isUserAuthenticated }) => {
             {" "}
             Login{" "}
           </Button>
+          <Button variant="contained"> Forgot password</Button>
           <Para>OR</Para>
           <Button variant="outlined" onClick={ToggleSignUp}>
             {" "}
@@ -159,6 +162,13 @@ const Login = ({ isUserAuthenticated }) => {
             variant="outlined"
           />
           {error && <Error>{error}</Error>}
+          <TextField
+            id="outlined-basic"
+            name="email"
+            onChange={onInputChange}
+            label="email"
+            variant="outlined"
+          />
           <Button variant="contained" onClick={signUpUser}>
             {" "}
             Signup{" "}

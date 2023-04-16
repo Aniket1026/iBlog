@@ -35,7 +35,7 @@ const App = () => {
   return (
     <DataProvider>
       <Router>
-        <div className="App" style={{ marginTop: "60px" }}>
+        <div className="App">
           <Routes>
             <Route
               exact

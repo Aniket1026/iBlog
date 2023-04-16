@@ -36,19 +36,19 @@ const InitialValues = {
 const Comments = ({ post }) => {
   const url = "https://static.thenounproject.com/png/12017-200.png";
   const [comment, setComment] = useState(InitialValues);
-  const [toggle, setToggle] = useState(false);
   const [comments, setComments] = useState([]);
+  const [toggle, setToggle] = useState(false);
   const { account } = useContext(DataContext);
 
   useEffect(() => {
-    const fetchData = async () => {
-      let response = await API.getComment(post._id);
+    const getData = async () => {
+      const response = await API.getComment(post._id);
       if (response.isSuccess) {
         setComments(response.data);
       }
     };
-    fetchData();
-  }, [post._id,toggle]);
+    getData();
+  }, [toggle, post]);
 
   const handleChange = (e) => {
     setComment({
@@ -64,7 +64,7 @@ const Comments = ({ post }) => {
     if (response.isSuccess) {
       setComment(InitialValues);
     }
-    setToggle(prevState=>!prevState)
+    setToggle((prevState) => !prevState);
   };
 
   return (
@@ -83,7 +83,13 @@ const Comments = ({ post }) => {
       </Container>
       <Box>
         {comments?.length > 0 &&
-          comments.map((comment) => <Comment key={comment.comments} comment={comment} setToggle={setToggle} />)}
+          comments.map((comment) => (
+            <Comment
+              key={comment.comments}
+              comment={comment}
+              setToggle={setToggle}
+            />
+          ))}
       </Box>
     </Box>
   );
