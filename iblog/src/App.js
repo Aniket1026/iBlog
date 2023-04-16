@@ -18,6 +18,7 @@ import "./App.css";
 
 import DataProvider from "./context/DataProvider";
 import CreatePost from "./components/create/CreatePost.jsx";
+import ForgotPassword from "./components/accounts/ForgotPassword.jsx";
 
 const PrivateRoute = ({ isAuthenticated, ...props }) => {
   return isAuthenticated ? (
@@ -78,6 +79,7 @@ const App = () => {
             >
               <Route exact path="/contact" element={<Contact />} />
             </Route>
+            <Route exact path="/password/reset" element={<ForgotPassword />} />
           </Routes>
         </div>
       </Router>
