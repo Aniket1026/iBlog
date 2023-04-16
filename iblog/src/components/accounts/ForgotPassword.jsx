@@ -1,6 +1,7 @@
 import React from "react";
-
-import { Box, TextField, Button, styled } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { Box, TextField, Button, styled, Typography } from "@mui/material";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
 const Component = styled(Box)`
   width: 400px;
@@ -17,9 +18,23 @@ const Image = styled("img")({
   height: 60,
 });
 
+const Navigator = styled(Typography)`
+     display:flex;
+     flex-direction:row;
+     align-items:center;
+     justify-content:center;
+     width:100;
+     height:40px;
+     cursor:pointer;
+`
+
 const ForgotPassword = () => {
   const imageURL =
-    "https://www.sesta.it/wp-content/uploads/2021/03/logo-blog-sesta-trasparente.png";
+        "https://www.sesta.it/wp-content/uploads/2021/03/logo-blog-sesta-trasparente.png";
+    const navigate = useNavigate();
+    const navigateToLogin = () => {
+        navigate('/login')
+    }
 
   return (
     <>
@@ -39,6 +54,10 @@ const ForgotPassword = () => {
         />
 
         <Button variant="contained">RESET PASSWORD</Button>
+        <Navigator onClick={navigateToLogin}>
+          <ArrowBackIosIcon />
+          Back to login
+        </Navigator>
       </Component>
     </>
   );
