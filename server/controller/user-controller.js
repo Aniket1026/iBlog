@@ -14,6 +14,7 @@ export const signupUser = async (request, response) => {
       name: request.body.name,
       username: request.body.username,
       password: hashedPassword,
+      email:request.body.email
     };
     const newUser = new User(user);
     await newUser.save();

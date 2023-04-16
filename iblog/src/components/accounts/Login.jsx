@@ -5,13 +5,15 @@ import { DataContext } from "../../context/DataProvider.jsx";
 import { Box, TextField, Button, styled, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
+
 const Component = styled(Box)`
   width: 400px;
-  height: 400px;
+  height: 500px;
   margin: auto;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  padding:20px;
 `;
 
 const Image = styled("img")({
@@ -32,22 +34,22 @@ const Error = styled(Typography)`
     margin-top:10px;
     font-weight:600;
 `
+const loginInitialValues = {
+  username: "",
+  password: "",
+};
+
+const signUpValues = {
+  name: "",
+  username: "",
+  password: "",
+};
 
 const Login = ({ isUserAuthenticated }) => {
   const [accountLogin, setAccountLogIn] = useState(true);
   const [error, setError] = useState("");
   const { setAccount } = useContext(DataContext);
   const navigate = useNavigate();
-  const loginInitialValues = {
-    username: "",
-    password: "",
-  };
-
-  const signUpValues = {
-    name: "",
-    username: "",
-    password: "",
-  };
   const [userDetail, setUserDetail] = useState(signUpValues);
   const [login, setLogin] = useState(loginInitialValues);
   const ToggleSignUp = () => {
@@ -69,10 +71,12 @@ const Login = ({ isUserAuthenticated }) => {
     console.log(response);
     console.log("after");
     if (response.isSuccess) {
+      console.log('YE chal rha')
       setError("");
       setUserDetail(signUpValues);
       setAccountLogIn(true);
-    } else {
+    } if(response.isError) {
+      console.log('Error mil gya')
       setError("Something went wrong.Please try again later");
     }
   };
@@ -103,73 +107,91 @@ const Login = ({ isUserAuthenticated }) => {
   // userDetail == signup
   const imageURL =
     "https://www.sesta.it/wp-content/uploads/2021/03/logo-blog-sesta-trasparente.png";
+  
+   const handleSubmit = (event) => {
+     event.preventDefault();
+   };
+
 
   return (
-    <>
-      {accountLogin ? (
-        <Component>
-          <Image src={imageURL} alt="login" />
-          <TextField
-            id="outlined-basic"
-            onChange={onValueChange}
-            name="username"
-            label="username"
-            variant="outlined"
-          />
-          <TextField
-            id="outlined-basic"
-            onChange={onValueChange}
-            name="password"
-            label="password"
-            variant="outlined"
-          />
-          {error && <Error>{error}</Error>}
-          <Button variant="contained" onClick={loginUser}>
-            {" "}
-            Login{" "}
-          </Button>
-          <Para>OR</Para>
-          <Button variant="outlined" onClick={ToggleSignUp}>
-            {" "}
-            Create an account{" "}
-          </Button>
-        </Component>
-      ) : (
-        <Component>
-          <Image src={imageURL} alt="login" />
-          <TextField
-            id="outlined-basic"
-            label="Enter name"
-            variant="outlined"
-            onChange={onInputChange}
-            name="name"
-          />
-          <TextField
-            id="outlined-basic"
-            name="username"
-            onChange={onInputChange}
-            label="username"
-            variant="outlined"
-          />
-          <TextField
-            id="outlined-basic"
-            name="password"
-            onChange={onInputChange}
-            label="password"
-            variant="outlined"
-          />
-          {error && <Error>{error}</Error>}
-          <Button variant="contained" onClick={signUpUser}>
-            {" "}
-            Signup{" "}
-          </Button>
-          <Para>OR</Para>
-          <Button variant="outlined" onClick={ToggleSignUp}>
-            Already have an account
-          </Button>
-        </Component>
-      )}
-    </>
+    <form onSubmit={handleSubmit}>
+        {accountLogin ? (
+          <Component>
+            <Image src={imageURL} alt="login" />
+            <TextField
+              id="outlined-basic"
+              onChange={onValueChange}
+              name="username"
+              label="username"
+              variant="outlined"
+            />
+            <TextField
+              id="outlined-basic"
+              onChange={onValueChange}
+              name="password"
+              label="password"
+              variant="outlined"
+            />
+            {error && <Error>{error}</Error>}
+            <Button variant="contained" onClick={loginUser}>
+              {" "}
+              Login{" "}
+            </Button>
+            <Button variant="contained"> Forgot password</Button>
+            <Para>OR</Para>
+            <Button variant="outlined" onClick={ToggleSignUp}>
+              {" "}
+              Create an account{" "}
+            </Button>
+          </Component>
+        ) : (
+          <Component>
+            <Image src={imageURL} alt="login" />
+            <TextField
+              id="outlined-basic"
+              label="name"
+              variant="outlined"
+              onChange={onInputChange}
+              required
+              name="name"
+            />
+            <TextField
+              id="outlined-basic"
+              name="username"
+              onChange={onInputChange}
+              label="username"
+              variant="outlined"
+              required
+            />
+            <TextField
+              id="outlined-basic"
+              name="password"
+              onChange={onInputChange}
+              label="password"
+              required
+              variant="outlined"
+            />
+            <TextField
+              id="outlined-basic"
+              name="email"
+              onChange={onInputChange}
+              label="email"
+              type="email"
+              required
+              variant="outlined"
+            />
+            {error && <Error>{error}</Error>}
+            <Button type="submit" variant="contained" onClick={signUpUser}>
+              {" "}
+              Signup{" "}
+            </Button>
+            <Para>OR</Para>
+            <Button variant="outlined" onClick={ToggleSignUp}>
+              Already have an account
+            </Button>
+          </Component>
+        )}
+    </form>
   );
 };
 
