@@ -73,7 +73,7 @@ const Update = () => {
       }
     }
     fetchData();
-  },[])
+  },[id])
 
   useEffect(() => {
     const getImage = async () => {
@@ -89,7 +89,7 @@ const Update = () => {
     getImage();
     post.categories = location.search?.split("=")[1] || "All";
     post.username = account.username;
-  }, [file]);
+  }, [account.username, file, location.search, post]);
 
   const HandleChange = (e) => {
     setPost({ ...post, [e.target.name]: e.target.value });

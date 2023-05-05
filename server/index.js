@@ -19,9 +19,6 @@ app.use("/", router);
 
 
 Connection(USERNAME,PASSWORD).then(() => {
-    //   app.listen(PORT, () => {
-        //     console.log("listening for requests");
-        //   });
         app.listen(PORT, () => {
           console.log(`Server is listening at PORT ${PORT}....`);
         });
