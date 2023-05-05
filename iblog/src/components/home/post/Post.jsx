@@ -6,7 +6,6 @@ const Container = styled(Box)`
   border: 1px solid #d3cede;
   border-radius: 10px;
   margin: 10px;
-  /* padding:1px; */
   display: flex;
   align-items: center;
   flex-direction: column;
