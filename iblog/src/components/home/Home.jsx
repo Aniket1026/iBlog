@@ -9,7 +9,7 @@ const Home = () => {
   return (
     <>
       <Banner />
-      <Grid container>
+      <Grid container direction="row" alignItems="center">
         <Grid item lg={2} sm={2} xs={12}>
           <Categories />
         </Grid>
