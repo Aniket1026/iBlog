@@ -48,7 +48,6 @@ If fail -> return {isFailure : true,status:string, msg:string,code:int}
 
 const processResponse = (response) => {
   if (response?.status === 200) {
-    console.log(response);
     return { isSuccess: true, data: response.data };
   } else {
     return {

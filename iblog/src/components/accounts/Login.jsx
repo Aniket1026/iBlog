@@ -1,10 +1,9 @@
-import React, { useState,useContext } from "react";
+import React, { useState, useContext } from "react";
 import { API } from "../../service/api.js";
 import { DataContext } from "../../context/DataProvider.jsx";
 
 import { Box, TextField, Button, styled, Typography } from "@mui/material";
-import { useNavigate,Link } from "react-router-dom";
-
+import { useNavigate, Link } from "react-router-dom";
 
 const Component = styled(Box)`
   width: 400px;
@@ -13,7 +12,7 @@ const Component = styled(Box)`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding:20px;
+  padding: 20px;
 `;
 
 const Image = styled("img")({
@@ -22,24 +21,20 @@ const Image = styled("img")({
 });
 
 const Para = styled("p")({
-  marginLeft: 'auto',
-  marginRight:'auto',
+  marginLeft: "auto",
+  marginRight: "auto",
   color: "grey",
 });
 
 const Error = styled(Typography)`
-    font-size:10;
-    color : #ff6161;
-    line-height:0;
-    margin-top:10px;
-    font-weight:600;
-`
+  font-size: 10;
+  color: #ff6161;
+  line-height: 0;
+  margin-top: 10px;
+  font-weight: 600;
+`;
 
 const Login = ({ isUserAuthenticated }) => {
-  const [accountLogin, setAccountLogIn] = useState(true);
-  const [error, setError] = useState("");
-  const { setAccount } = useContext(DataContext);
-  const navigate = useNavigate();
   const loginInitialValues = {
     username: "",
     password: "",
@@ -49,27 +44,36 @@ const Login = ({ isUserAuthenticated }) => {
     name: "",
     username: "",
     password: "",
+    email: "",
   };
+
   const [userDetail, setUserDetail] = useState(signUpValues);
   const [login, setLogin] = useState(loginInitialValues);
+  const [accountLogin, setAccountLogIn] = useState(true);
+  const [error, setError] = useState("");
+
+  const { setAccount } = useContext(DataContext);
+  const navigate = useNavigate();
+
+  const imageURL =
+    "https://www.sesta.it/wp-content/uploads/2021/03/logo-blog-sesta-trasparente.png";
+
   const ToggleSignUp = () => {
     setAccountLogIn(!accountLogin);
   };
 
   const onValueChange = (e) => {
     setLogin({ ...login, [e.target.name]: e.target.value });
+    // console.log(login)
   };
 
   const onInputChange = (e) => {
     setUserDetail({ ...userDetail, [e.target.name]: e.target.value });
-    console.log(userDetail);
+    // console.log(userDetail);
   };
 
   const signUpUser = async () => {
-    let response = await API.userSignup(userDetail);
-    console.log("before ");
-    console.log(response);
-    console.log("after");
+    const response = await API.userSignup(userDetail);
     if (response.isSuccess) {
       setError("");
       setUserDetail(signUpValues);
@@ -80,7 +84,11 @@ const Login = ({ isUserAuthenticated }) => {
   };
 
   const loginUser = async () => {
-    let response = await API.userLogin(login);
+    console.log(login);
+    const response = await API.userLogin(login);
+    console.log("before ");
+    console.log(response);
+    console.log("after");
     if (response.isSuccess) {
       setError("");
       sessionStorage.setItem(
@@ -90,12 +98,13 @@ const Login = ({ isUserAuthenticated }) => {
       sessionStorage.setItem(
         "refreshToken",
         `Bearer ${response.data.refreshToken}`
-      );
+      ); 
       setAccount({
         username: response.data.username,
         name: response.data.name,
       });
       isUserAuthenticated(true);
+      setLogin(loginInitialValues)
       navigate("/");
     } else {
       setError("Something went wrong.Please try again later");
@@ -103,8 +112,6 @@ const Login = ({ isUserAuthenticated }) => {
   };
 
   // userDetail == signup
-  const imageURL =
-    "https://www.sesta.it/wp-content/uploads/2021/03/logo-blog-sesta-trasparente.png";
 
   return (
     <>
@@ -129,8 +136,10 @@ const Login = ({ isUserAuthenticated }) => {
           <Button variant="contained" onClick={loginUser}>
             Login
           </Button>
-          <Link to='/password/reset' style={{textDecoration:'none'}}>
-          <Button variant="contained" style={{width:'400px'}}>Forgot Password</Button>
+          <Link to="/password/reset" style={{ textDecoration: "none" }}>
+            <Button variant="contained" style={{ width: "400px" }}>
+              Forgot Password
+            </Button>
           </Link>
           <Para>OR</Para>
           <Button variant="outlined" onClick={ToggleSignUp}>
